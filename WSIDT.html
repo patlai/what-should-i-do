@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    
+        <script>
+            
+        $(document).ready(function() {
+                $.ajax({
+                    url: "http://terminal2.expedia.com/x/geo/features/6155188/features?type=airport&top=15&lcid=1033&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu"
+                }).then(function(data) {
+                    var dankmemes = JSON.stringify(data[0]);
+                    $('body').append(data[0].name);
+                    
+                    for(var index in data) { 
+                        $('body').append(data[index].name + "<br>");
+                    }
+                    //$('body').append(dankmemes);
+                }); 
+            });
+        </script>
+    </head>
+    
+    <body>
+    
+    <div>
+            <p class="greeting-id">The ID is </p>
+            <p class="greeting-content">The content is </p>
+        </div>
+    </body>
+    
+    
+</html>
