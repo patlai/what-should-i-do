@@ -58,4 +58,12 @@ p.a{
 p.foot{
 	line-height: 200%;
 }
+div.thing{
+	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	
+}
+img.activity{
+	width: 50%;
+	height: 50%;
+}
 	

@@ -2,14 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Untitled Document</title>
+        <title>WSIDT</title>
         <link href="style.css" rel="stylesheet" type="text/css">
-        <script src="speechRec.js"></script>
+       
     </head>
+   
 
     <body>
         <center>
-            <img src = "bannertest.png" width="100%" height="100%">
+            <img src = "../images/banner.png" width="100%" height="100%">
             <ul class = "a">
                 <li><a href="default.asp">Home</a></li>
                 <li><a href="news.asp">About</a></li>
@@ -18,11 +19,77 @@
             </ul>
         </center>
         <p class = "a">
-            Welcome to our speech to dank memes web application.
+        Where are you?
+        <br>
+         <input type="text" id = "input">
+         <br>
+           
+           
         </p>
-        <form>
+        <button onclick="wsidt()"> What Should I do?</button>
+        <div  align="center" id="thing" style="font-weight: bold;" class="thing">
+        </div>
+        
+               
+    
+<script>
+
+function wsidt(){
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+var yyyyNxt = parseInt( today.getFullYear()) +1	;
+
+if(dd<10) {
+    dd='0'+dd
+} 
+
+if(mm<10) {
+    mm='0'+mm
+} 
+
+today = yyyy+'-'+mm+'-'+dd;
+nextYear = yyyyNxt+'-'+mm+'-'+dd;
+		var place = document.getElementById("input").value;
+		//alert(place);
+		var theURL = "http://terminal2.expedia.com/x/activities/search?location="+ place +"&startDate=" + today + "8&endDate="+ nextYear + "&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu";
+        $(document).ready(function() {
+                $.ajax({
+                    url: //"http://terminal2.expedia.com/x/geo/features/6155188/features?type=airport&top=15&lcid=1033&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu"
+                    theURL
+                }).then(function(data) {
+                    var length = data.activities.length;
+                    var randomNumber = Math.floor(Math.random()*(length));
+                    //$('body').append(randomNumber);
+                    var saa = JSON.stringify(data);
+                    var dankmemes = JSON.stringify(saa);
+					 var imagePath;
+					 imagePath = data.activities[randomNumber].largeImageURL;
+					 if(imagePath == null){
+						 imagePath = data.activities[randomNumber].imageURL;
+					 }
+                    document.getElementById("thing").innerHTML = ("Why don't you go to:" + "<br>" + data.activities[randomNumber].title + "?" + "<br><br>" + "<img class =\"activity\" src=\"" + "http:" + imagePath + "\">" + "<br>  It will cost: " + data.activities[randomNumber].fromPrice +" " + data.activities[randomNumber].fromPriceLabel + " and it will help you escape from your shitty life for: " + data.activities[randomNumber].duration  );
+                    
+//                    for(var index in data) { 
+//                        $('body').append((data[index].title) + "<br>");
+//                    }
+                    //$('body').append(dankmemes);
+                }); 
+            });
+		}
+	
+        </script >
+        <!-- <form>
             <input type="button" value="Click me" onclick="msg()">
-        </form>
+        </form> -->
+     
+
+
+      <div id ="map"> 
+         
+      </div>  
+        
     </body>
 
     <footer>
