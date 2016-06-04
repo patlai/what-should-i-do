@@ -1,10 +1,11 @@
 <!doctype html>
 <html>
     <head>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <meta charset="UTF-8">
         <title>WSIDT</title>
         <link href="style.css" rel="stylesheet" type="text/css">
-       
+      
     </head>
    
 
@@ -54,6 +55,7 @@ nextYear = yyyyNxt+'-'+mm+'-'+dd;
 		var place = document.getElementById("input").value;
 		//alert(place);
 		var theURL = "http://terminal2.expedia.com/x/activities/search?location="+ place +"&startDate=" + today + "8&endDate="+ nextYear + "&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu";
+		
         $(document).ready(function() {
                 $.ajax({
                     url: //"http://terminal2.expedia.com/x/geo/features/6155188/features?type=airport&top=15&lcid=1033&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu"
@@ -80,15 +82,8 @@ nextYear = yyyyNxt+'-'+mm+'-'+dd;
 		}
 	
         </script >
-        <!-- <form>
-            <input type="button" value="Click me" onclick="msg()">
-        </form> -->
-     
-
-
-      <div id ="map"> 
-         
-      </div>  
+       
+ 
         
     </body>
 
