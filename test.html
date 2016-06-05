@@ -1,0 +1,48 @@
+<html>
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    
+    <script type="text/javascript">
+        window.onload = function () {
+            var mapOptions = {
+                center: new google.maps.LatLng(45.5, -73.6),
+                zoom: 5,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var latlngbounds = new google.maps.LatLngBounds();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+            google.maps.event.addListener(map, 'click', function (e) {
+                alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+                var lat = e.latLng.lat();
+                var long = e.latLng.lng();
+                city(lat, long, 1);
+            });
+        }
+    </script>
+
+    <script>
+    function city(lat, long, dist){
+        
+        locQuery = "http://terminal2.expedia.com:80/x/geo/features?within="+dist+"km&lat="+ lat+"&lng=" +long+"&type=city&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu";
+        
+    $(document).ready(function() {
+            $.ajax({
+                url: locQuery
+            }).then(function(data) {
+                if (data.length == 0)
+                    city(lat, long, (dist*2));
+                else
+                    $('body').append(data[0].name + "<br>")
+            }); 
+        });
+    }
+    </script>
+    
+    <div id="dvMap" style="width: 100%; height: 100%"></div>    
+</body>
+</html>

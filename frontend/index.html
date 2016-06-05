@@ -10,8 +10,47 @@
    
 
     <body>
+         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    
+    <script type="text/javascript">
+        window.onload = function () {
+            var mapOptions = {
+                center: new google.maps.LatLng(45.5, -73.6),
+                zoom: 5,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var latlngbounds = new google.maps.LatLngBounds();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+            google.maps.event.addListener(map, 'click', function (e) {
+                var lat = e.latLng.lat();
+                var long = e.latLng.lng();
+                city(lat, long, 1);
+            });
+        }
+    </script>
+
+    <script>
+    function city(lat, long, dist){
+        
+        locQuery = "http://terminal2.expedia.com:80/x/geo/features?within="+dist+"km&lat="+ lat+"&lng=" +long+"&type=city&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu";
+        
+    $(document).ready(function() {
+            $.ajax({
+                url: locQuery
+            }).then(function(data) {
+                if (data.length == 0)
+                    city(lat, long, (dist*2));
+                else
+                    document.getElementById("input").innerHTML = data[0].name;
+            }); 
+        });
+    }
+    </script>
+    
         <center>
             <img src = "../images/banner.png" width="100%" height="100%">
+            
             <ul class = "a">
                 <li><a href="default.asp">Home</a></li>
                 <li><a href="news.asp">About</a></li>
@@ -19,75 +58,118 @@
                 <li><a href="about.asp">Application</a></li>
             </ul>
         </center>
-        <p class = "a">
-        Where are you?
-        <br>
-         <input type="text" id = "input">
-         <br>
-           
-           
-        </p>
-        <button onclick="wsidt()"> What Should I do?</button>
-        <div  align="center" id="thing" style="font-weight: bold;" class="thing">
+<center>
+<div class = "triceps">
+        Where do you want to go?
         </div>
         
-               
-    
-<script>
-
-function wsidt(){
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0!
-var yyyy = today.getFullYear();
-var yyyyNxt = parseInt( today.getFullYear()) +1	;
-
-if(dd<10) {
-    dd='0'+dd
-} 
-
-if(mm<10) {
-    mm='0'+mm
-} 
-
-today = yyyy+'-'+mm+'-'+dd;
-nextYear = yyyyNxt+'-'+mm+'-'+dd;
-		var place = document.getElementById("input").value;
-		//alert(place);
-		var theURL = "http://terminal2.expedia.com/x/activities/search?location="+ place +"&startDate=" + today + "8&endDate="+ nextYear + "&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu";
-		
-        $(document).ready(function() {
-                $.ajax({
-                    url: //"http://terminal2.expedia.com/x/geo/features/6155188/features?type=airport&top=15&lcid=1033&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu"
-                    theURL
-                }).then(function(data) {
-                    var length = data.activities.length;
-                    var randomNumber = Math.floor(Math.random()*(length));
-                    //$('body').append(randomNumber);
-                    var saa = JSON.stringify(data);
-                    var dankmemes = JSON.stringify(saa);
-					 var imagePath;
-					 imagePath = data.activities[randomNumber].largeImageURL;
-					 if(imagePath == null){
-						 imagePath = data.activities[randomNumber].imageURL;
-					 }
-                    document.getElementById("thing").innerHTML = ("Why don't you go to:" + "<br>" + data.activities[randomNumber].title + "?" + "<br><br>" + "<img class =\"activity\" src=\"" + "http:" + imagePath + "\">" + "<br>  It will cost: " + data.activities[randomNumber].fromPrice +" " + data.activities[randomNumber].fromPriceLabel + " and it will help you escape from your shitty life for: " + data.activities[randomNumber].duration  );
-                    
-//                    for(var index in data) { 
-//                        $('body').append((data[index].title) + "<br>");
-//                    }
-                    //$('body').append(dankmemes);
-                }); 
-            });
-		}
-	
-        </script >
+        <!-- <input type="text" id = "input"> -->
+         <div id = "input" class="displayLocation" ></div>
+         <br>
+         </center>
+           
+           
+        
+        
+</form> 
+        <div align="center" id="dvMap" style="width: 100%; height: 400px">xxxpussyslayerxxx</div>
        
+       <script>
+         	function appearFuck(){
+				document.getElementById("fuck").style.display = "block";
+				document.getElementById("thing").style.display = "block";
+				document.getElementById("lol").innerHTML = "Something Else?";
+			}
+        </script>
+        
+        
+         <script>
+         	function appearDv(){
+				document.getElementById("dvMap").style.display = "block";
+				document.getElementById("fuck").style.display = "none";
+				document.getElementById("thing").style.display = "none";
+				document.getElementById("whatShouldIDo").innerHTML = "What Should I do?";
+			}
+			
+         </script>
+        
+
+        <div  align="center" id="thing" style="font-weight: bold;" class="thing">
+        </div>
+        <br>
+       <div class = "biceps">
+        	<div id="lol" onclick="wsidt(); appearFuck();" class="actionButton">What Should I do?</div> 
+            <div class="actionButton">I want to stay home</div>
+             <div id="fuck" style="display:none;" onclick = "appearDv();" class="actionButton">Fuck this city</div>
+        </div>
+        <div align = "center" id="rating">
+        
+        </div>
+             
+  
+       <!-- <script>
+            function rating(){
+            var placeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyDKbRgH2ILj9tsgiPgHepJGzHpO9OtRufU"
+            $(document).ready(function(){
+                $.ajax({url: placeURL}).then(function(data){
+                    var s = data.result.address_components[0];
+                    document.getElementById("rating").innerHTML = s;
+                })
+            }
+                                            )}
+        </script> -->
+        <script>
+        function wsidt(){
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        var yyyyNxt = parseInt( today.getFullYear()) +1	;
+        if(dd<10) {
+            dd='0'+dd
+        } 
+        if(mm<10) {
+            mm='0'+mm
+        } 
+        today = yyyy+'-'+mm+'-'+dd;
+        nextYear = yyyyNxt+'-'+mm+'-'+dd;
+                var place = document.getElementById("input").innerHTML;
+                //alert(place);
+                var theURL = "http://terminal2.expedia.com/x/activities/search?location="+ place +"&startDate=" + today + "8&endDate="+ nextYear + "&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu";
+
+                $(document).ready(function() {
+                        $.ajax({
+                            url: //"http://terminal2.expedia.com/x/geo/features/6155188/features?type=airport&top=15&lcid=1033&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu"
+                            theURL
+                        }).then(function(data) {
+                            var length = data.activities.length;
+                            var randomNumber = Math.floor(Math.random()*(length));
+                            //$('body').append(randomNumber);
+                            var saa = JSON.stringify(data);
+                            var dankmemes = JSON.stringify(saa);
+                             var imagePath;
+                             imagePath = data.activities[randomNumber].largeImageURL;
+                             if(imagePath == null){
+                                 imagePath = data.activities[randomNumber].imageURL;
+                             } 
+							 
+							document.getElementById("dvMap").style.display = "none";
+                            document.getElementById("thing").innerHTML = ("Why don't you go to:" + "<br>" + data.activities[randomNumber].title + "?" + "<br><br>" + "<img class =\"activity\" src=\"" + "http:" + imagePath + "\">" + "<br>  It will cost: " + data.activities[randomNumber].fromPrice +" " + data.activities[randomNumber].fromPriceLabel + " and it will help you escape from your shitty life for: " + data.activities[randomNumber].duration  );
+
+        //                    for(var index in data) { 
+        //                        $('body').append((data[index].title) + "<br>");
+        //                    }
+                            //$('body').append(dankmemes);
+                        	}); 
+                    });
+                }
+
+        </script >
+        
  
         
     </body>
-
-    <footer>
+    <footer style ="float: left">
         <p class = "foot">
            <font size="-2"> Copyright 2016, any violation will result in the ban of rare pepes 5ever </font>
         </p>

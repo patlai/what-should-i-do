@@ -38,7 +38,7 @@ body{
 	background-sze: 100% 50%;-->
 }
 footer {
-    position: absolute;
+    position: relative;
     left: 0;
     bottom: 0;
     height: 100px;
@@ -59,11 +59,44 @@ p.foot{
 	line-height: 200%;
 }
 div.thing{
-	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
 	
 }
 img.activity{
 	width: 50%;
 	height: 50%;
+}
+div.actionButton{
+	width:  200px;
+	height: 40px;
+	line-height: 40px;
+	background-color: #333;
+	font-family: bebas;
+	font-size: 20px;
+	font-weight: bold;
+	color: #FFFFFF;
+	margin: 10px;
+	padding: 0Px;
+	float: left;
+	text-align:center;	
+}
+div.actionButton:hover{
+	background-color: #111;
+}
+div.biceps{
+	display: table;
+    margin: 0 auto; 
+	align: center;
+}
+div.displayLocation{
+	padding: 0px;
+	margin: 0px;
+	font-family:bebas;
+	font-size: 28px;
+}
+div.triceps{
+	font-family: bebas;
+	font-size: 22px;
+	margin: 10px;
 }
 	
