@@ -60,8 +60,13 @@ p.foot{
 }
 div.thing{
 	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	font-size: 24px;
 	margin: 10px;
-	
+}
+div.details{
+	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+	font-size: 18px;
+	margin: 10px;
 }
 img.activity{
 	width: 50%;
