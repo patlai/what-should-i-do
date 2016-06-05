@@ -14,6 +14,7 @@
     
     <script type="text/javascript">
         window.onload = function () {
+			
             var mapOptions = {
                 center: new google.maps.LatLng(45.5, -73.6),
                 zoom: 5,
@@ -23,9 +24,10 @@
             var latlngbounds = new google.maps.LatLngBounds();
             var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
             google.maps.event.addListener(map, 'click', function (e) {
-                var lat = e.latLng.lat();
-                var long = e.latLng.lng();
-                city(lat, long, 1);
+                 var latt = e.latLng.lat();
+                 var long = e.latLng.lng();
+                city(latt, long, 1);
+				
             });
         }
     </script>
@@ -78,33 +80,54 @@
          	function appearFuck(){
 				document.getElementById("fuck").style.display = "block";
 				document.getElementById("thing").style.display = "block";
+				document.getElementById("street-view").style.display= "block";
 				document.getElementById("lol").innerHTML = "Something Else?";
+				
 			}
         </script>
-        
-        
          <script>
          	function appearDv(){
+				document.getElementById("lol").innerHTML = "What Should I do?";
+				document.getElementById("street-view").style.display= "none";
 				document.getElementById("dvMap").style.display = "block";
 				document.getElementById("fuck").style.display = "none";
 				document.getElementById("thing").style.display = "none";
-				document.getElementById("whatShouldIDo").innerHTML = "What Should I do?";
+				
+				
 			}
 			
          </script>
-        
-
         <div  align="center" id="thing" style="font-weight: bold;" class="thing">
         </div>
-        <br>
+                 <div  id="street-view" style = "width:100%; height: 300px; display: none;"></div>
+
+        
        <div class = "biceps">
         	<div id="lol" onclick="wsidt(); appearFuck();" class="actionButton">What Should I do?</div> 
             <div class="actionButton">I want to stay home</div>
              <div id="fuck" style="display:none;" onclick = "appearDv();" class="actionButton">Fuck this city</div>
         </div>
-        <div align = "center" id="rating">
+       
+    <script>
+	function loadPano(latt, long){	
+		
+      var panorama;
+    
+        panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('street-view'),
+            {
+              position: {lat: latt, lng: long},
+              pov: {heading: 165, pitch: 0},
+              zoom: 1
+            });
+      
+	}
+    </script>
+    <script async defer
+         src="https://maps.googleapis.com/maps/api/js?key=	
+AIzaSyCch7MHd9--DDGt4P0ppFt-jJ1xG1c6EoE&">
+    </script>
         
-        </div>
              
   
        <!-- <script>
@@ -152,6 +175,20 @@
                              if(imagePath == null){
                                  imagePath = data.activities[randomNumber].imageURL;
                              } 
+							var activityLat = parseFloat( data.activities[randomNumber].latLng.split(",")[0]);
+                            var activityLong = parseFloat( data.activities[randomNumber].latLng.split(",")[1]);
+							
+                            window.onload = loadPano(activityLat, activityLong);
+							 var panorama;
+							function initialize() {
+							  panorama = new google.maps.StreetViewPanorama(
+								  document.getElementById('panorama'),
+								  {
+									position: {lat: latt, lng: long},
+									pov: {heading: 165, pitch: 0},
+									zoom: 1
+								  });
+							}
 							 
 							document.getElementById("dvMap").style.display = "none";
                             document.getElementById("thing").innerHTML = ("Why don't you go to:" + "<br>" + data.activities[randomNumber].title + "?" + "<br><br>" + "<img class =\"activity\" src=\"" + "http:" + imagePath + "\">" + "<br>  It will cost: " + data.activities[randomNumber].fromPrice +" " + data.activities[randomNumber].fromPriceLabel + " and it will help you escape from your shitty life for: " + data.activities[randomNumber].duration  );
