@@ -10,143 +10,115 @@
    
 
     <body bgcolor="#D1D1D1">
-         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     
-    <script type="text/javascript">
-        window.onload = function () {
-			
-            var mapOptions = {
-                center: new google.maps.LatLng(45.5, -73.6),
-                zoom: 5,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            var infoWindow = new google.maps.InfoWindow();
-            var latlngbounds = new google.maps.LatLngBounds();
-            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-            google.maps.event.addListener(map, 'click', function (e) {
-                 var latt = e.latLng.lat();
-                 var long = e.latLng.lng();
-                city(latt, long, 1);
-				
+        <script type="text/javascript">
+            window.onload = function () {
+
+                var mapOptions = {
+                    center: new google.maps.LatLng(45.5, -73.6),
+                    zoom: 5,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var infoWindow = new google.maps.InfoWindow();
+                var latlngbounds = new google.maps.LatLngBounds();
+                var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                google.maps.event.addListener(map, 'click', function (e) {
+                     var latt = e.latLng.lat();
+                     var long = e.latLng.lng();
+                    city(latt, long, 1);
+
+                });
+            }
+        </script>
+
+        <script>
+        function city(lat, long, dist){
+
+            locQuery = "http://terminal2.expedia.com:80/x/geo/features?within="+dist+"km&lat="+ lat+"&lng=" +long+"&type=city&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu";
+
+        $(document).ready(function() {
+                $.ajax({
+                    url: locQuery
+                }).then(function(data) {
+                    if (data.length == 0)
+                        city(lat, long, (dist*2));
+                    else
+                        document.getElementById("input").innerHTML = data[0].name;
+                }); 
             });
         }
-    </script>
-
-    <script>
-    function city(lat, long, dist){
-        
-        locQuery = "http://terminal2.expedia.com:80/x/geo/features?within="+dist+"km&lat="+ lat+"&lng=" +long+"&type=city&verbose=1&apikey=2fCEYPoPpi0189CotCLeLB0I4cy0Glvu";
-        
-    $(document).ready(function() {
-            $.ajax({
-                url: locQuery
-            }).then(function(data) {
-                if (data.length == 0)
-                    city(lat, long, (dist*2));
-                else
-                    document.getElementById("input").innerHTML = data[0].name;
-            }); 
-        });
-    }
-    </script>
+        </script>
     
         <center>
             <img src = "../images/banner.png" width="100%" height="100%">
-            
             <ul class = "a">
                 <li><a href="default.asp">Home</a></li>
                 <li><a href="news.asp">About</a></li>
                 <li><a href="contact.asp">Dank Memes</a></li>
                 <li><a href="about.asp">Application</a></li>
-            </ul>
-        </center>
-<center>
-<div class = "triceps">
-        Where are you now?
-        </div>
-        
-        <!-- <input type="text" id = "input"> -->
-         <div id = "input" class="displayLocation" ></div>
+            </ul><br>
 
-         </center>
-           
-           
-        
-        
-</form> 
-        <div align="center" id="dvMap" style="width: 100%; height: 400px">xxxpussyslayerxxx</div>
+        </center>
+        <center>
+        <div class = "triceps">
+                Where are you now?
+                </div>
+
+                <!-- <input type="text" id = "input"> -->
+                 <div id = "input" class="displayLocation" ></div>
+        </center>
+        <div align="center" id="dvMap" style="width: 100%; height: 400px"></div>
        
-       <script>
+        <script>
          	function appearFuck(){
 				document.getElementById("fuck").style.display = "block";
 				document.getElementById("thing").style.display = "block";
 				document.getElementById("activityDetails").style.display = "block";
 				document.getElementById("street-view").style.display= "block";
-				document.getElementById("lol").innerHTML = "Something Else?";
-				
-				
+				document.getElementById("lol").innerHTML = "Something Else?";	
 			}
         </script>
-         <script>
+        <script>
          	function appearDv(){
 				document.getElementById("lol").innerHTML = "What Should I do?";
 				document.getElementById("street-view").style.display= "none";
 				document.getElementById("dvMap").style.display = "block";
 				document.getElementById("fuck").style.display = "none";
 				document.getElementById("thing").style.display = "none";
-				document.getElementById("activityDetails").style.display = "none";
-				
-				
-			}
-			
-         </script>
+				document.getElementById("activityDetails").style.display = "none";	
+			 }
+        </script>
         <div  align="center" id="thing" style="font-weight: bold;" class="thing">
         </div>
-        <div  align="center" id="activityDetails" style="font-weight: bold;" class = "details" >
-        
-        </div>
-                 <div  id="street-view" style = "width:100%; height: 300px; display: none;"></div>
-
-        
-       <div class = "biceps">
-        	<div id="lol" onclick="wsidt(); appearFuck();" class="actionButton">What Should I do?</div> 
-            <div class="actionButton" onclick = "location.href='http://www.netflix.com'" >I want to stay home</div>
-             <div id="fuck" style="display:none;" onclick = "appearDv();" class="actionButton">Fuck this city</div>
+        <div  align="center" id="activityDetails" style="font-weight: bold;" class = "details" ></div>
+        <div  id="street-view" style = "width:100%; height: 300px; display: none;"></div>
+        <div class = "biceps">
+        <div id="lol" onclick="wsidt(); appearFuck();" class="actionButton">What Should I do?</div> 
+        <div class="actionButton" onclick = "location.href='http://www.netflix.com'" >I want to stay home</div>
+        <div id="fuck" style="display:none;" onclick = "appearDv();" class="actionButton">Fuck this city</div>
         </div>
        
-    <script>
-	function loadPano(latt, long){	
-		
-      var panorama;
-    
-        panorama = new google.maps.StreetViewPanorama(
-            document.getElementById('street-view'),
-            {
-              position: {lat: latt, lng: long},
-              pov: {heading: 165, pitch: 0},
-              zoom: 1
-            });
-      
-	}
-    </script>
-    <script async defer
-         src="https://maps.googleapis.com/maps/api/js?key=	
-AIzaSyCch7MHd9--DDGt4P0ppFt-jJ1xG1c6EoE&">
-    </script>
+        <script>
+            function loadPano(latt, long){	
+
+              var panorama;
+
+                panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById('street-view'),
+                    {
+                      position: {lat: latt, lng: long},
+                      pov: {heading: 165, pitch: 0},
+                      zoom: 1
+                    });
+
+                }
+        </script>
+        <script async defer
+             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCch7MHd9--DDGt4P0ppFt-jJ1xG1c6EoE&">
+        </script>
         
              
-  
-       <!-- <script>
-            function rating(){
-            var placeURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyDKbRgH2ILj9tsgiPgHepJGzHpO9OtRufU"
-            $(document).ready(function(){
-                $.ajax({url: placeURL}).then(function(data){
-                    var s = data.result.address_components[0];
-                    document.getElementById("rating").innerHTML = s;
-                })
-            }
-                                            )}
-        </script> -->
         <script>
         function wsidt(){
         var today = new Date();
@@ -202,12 +174,8 @@ AIzaSyCch7MHd9--DDGt4P0ppFt-jJ1xG1c6EoE&">
 							 
 							document.getElementById("dvMap").style.display = "none";
                             document.getElementById("thing").innerHTML = ("Why don't you go to:" + "<br>" + data.activities[randomNumber].title + "?" + "<br><br>" + "<img class =\"activity\" src=\"" + "http:" + imagePath + "\">" + "<br> " );
-							document.getElementById("activityDetails").innerHTML = ("   It will cost: " + data.activities[randomNumber].fromPrice +" " + data.activities[randomNumber].fromPriceLabel + " and it will help you escape from your shitty life for: " + data.activities[randomNumber].duration  );
+							document.getElementById("activityDetails").innerHTML = ("   It will cost: " + data.activities[randomNumber].fromPrice +" " + data.activities[randomNumber].fromPriceLabel + " and it will keep you busy for: " + data.activities[randomNumber].duration  );
 
-        //                    for(var index in data) { 
-        //                        $('body').append((data[index].title) + "<br>");
-        //                    }
-                            //$('body').append(dankmemes);
                         	}); 
                     });
                 }
